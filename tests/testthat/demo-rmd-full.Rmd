@@ -6,12 +6,14 @@ output: html_document
 ```{r, input_demo, eval = FALSE}
 input <-
   list(
-    x = 1,
-    y = 2
+    x = 10,
+    y = "Hello"
   )
 ```
 
 ```{r}
+library(shiny)
+
 a <- 1
 a
 
@@ -20,6 +22,11 @@ b
 ```
 
 ```{r}
+my_df <- reactive({
+  head(cars, input$x)
+})
+
+about_df <- reactiveValues(n_obs = nrow(my_df()), len = length(my_df()))
 renderText(input$x)
 renderText(input$y)
 ```
